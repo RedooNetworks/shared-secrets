@@ -30,9 +30,9 @@
 ?>
 
   <form role="form" action="/<?php print(htmlentities(SECRET_URI)); ?>" method="post">
-    <label for="secret"><h1>Share a Secret:</h1></label>
+    <label for="secret"><h1>Teile diese Geheimnis:</h1></label>
     <input type="text" autocomplete="off" class="form-control" id="secret" name="secret" maxlength="512" size="512" />
-    <button type="submit" class="btn btn-default pull-right" id="share-secret-btn" name="share-secret-btn">Share the Secret!</button>
+    <button type="submit" class="btn btn-default pull-right" id="share-secret-btn" name="share-secret-btn">Verschlüsseln!</button>
   </form>
 
   <link href="/resources/css/share.css?<?php print($cache_value); ?>" integrity="sha256-tByl5f3IGvPqqtUvyHcSIe4SXVXRnx7wiMlmG07yZbA=" rel="stylesheet" type="text/css" />
@@ -40,7 +40,7 @@
 <?php
   if (ENABLE_PASSWORD_PROTECTION) {
 ?>
-  <label class="checkbox-inline" for="encrypt-locally"><input type="checkbox" autocomplete="off" id="encrypt-locally" value="" />Password-protected: </label>
+  <label class="checkbox-inline" for="encrypt-locally"><input type="checkbox" autocomplete="off" id="encrypt-locally" value="" />Passwordschutz: </label>
   <input type="password" autocomplete="off" class="form-control" id="password" maxlength="64" size="32" />
   <input type="button" class="btn btn-default" id="encrypt" value="Protect!" />
 

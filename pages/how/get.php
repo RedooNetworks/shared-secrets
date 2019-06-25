@@ -21,32 +21,32 @@
 
 ?>
 
-  <h2>Short description of this service.</h2>
-  <p>This secret sharing service is based on GPG encryption. When creating a new secret sharing link, the secret itself is encrypted via GPG. The result of the GPG encryption is URL-safe Base64 encoded and prepended with the URL of this website. When the secret sharing link is called, the URL-safe Base64 encoded GPG message is decrypted and the result of the decryption is displayed on the website. Additionally, the fingerprint of the URL-safe Base64 encoded GPG message is stored in a database to prevent it from being displayed more than once.<br />
+  <h2>Eine kurze Beschreibung, wie dieser Dienst funktioniert.</h2>
+  <p>Die Verschlüsselung bassiert auf einer GPG Verschlüsselung. Wenn Sie einen neuen sicheren Link generieren, dann wird das Geheimnis selbst via GPG verschlüsselt. Das Ergebnis dieser Verschlüsselung ist eine URL-sichere Version des Geheimnis. Wenn der geheime Link aufgerufen wurd, wird diese sichere URL wieder per GPG entschlüsselt und auf der Webseite angezeigt. Zusätzlich wird ein unwiederherstellbarerer Fingerabdruck auf dem Server abgelegt, damit das Geheimnis nur einmalig entschlüsselt werden kann. Dieser Fingerabdruck enthält das Geheimnis nicht.<br />
      <br />
-     You can build your own secret sharing link by following some basic steps.</p>
+     Sie können einen eigenen Secret Sharing link mit folgenden Schritten erstellen und sind komplett unabhängig unseres Dienstes.</p>
 
-  <h3>Get the correct public key.</h3>
-  <p>First of all you have to retrieve the correct public key to encrypt your secret:<br/>
+  <h3>Get korrekten öffentlichen Schlüssel holen.</h3>
+  <p>Als erstes müssen Sie unseren öffentlichen Schlüssel laden, welcher zum Verschlüsseln benötigt wird und das Geheimnis selbst nicht entschlüsseln kann:<br/>
      <pre>gpg --recv-keys --keyserver "hkps://keyserver.syseleven.de/" "<?php print(htmlentities(GPG_KEY_FINGERPRINT)); ?>"</pre></p>
 
-  <h3>Encrypt the secret you want to share.</h3>
-  <p>To create a secret sharing link you have to do certain steps that are decribed here:
+  <h3>Das Geheimnis verschlüsseln.</h3>
+  <p>Um einen aufrufbaren Link zu erstellen, müssen Sie die folgenden Schritte durchführen:
      <ol>
-       <li>encrypt the secret via GPG</li>
-       <li>Base64 encode the encrypted secret</li>
-       <li>remove line breaks</li>
-       <li>apply URL-safe Base64 encoding:
+       <li>das Geheimnis per GPG verschlüsseln</li>
+       <li>Den verschlüsselten Text über Base64 kodieren</li>
+       <li>Zeilenumbrüche entfernen</li>
+       <li>URL-sichere Kodierungen ersetzen:
            <ul>
-             <li>remove equation signs</li>
-             <li>replace "+" with "-"</li>
-             <li>replace "/" with "_"</li>
+             <li>entferne = Zeichen</li>
+             <li>ersetze "+" mit "-"</li>
+             <li>ersetze "/" mit "_"</li>
            </ul></li>
-       <li>prepend the secret sharing URL</li>
+       <li>die URL unseres Dienstes voranstellen, damit die URL entschlüsselt werden kann. Sie selbst können das Geheimnis nicht entschlüsseln.</li>
      </ol>
      <br />
-     All of these steps can be executed using a single shell command:<br />
-     <pre>echo "secret"                                                                     | # the secret you want to share
+     Alle diese Schritte können über folgende Shell Kommandos durchgeführt werden:<br />
+     <pre>echo "geheimnis"                                                                     | # the secret you want to share
 gpg --recipient "<?php print(htmlentities(GPG_KEY_FINGERPRINT)); ?>" --output - --encrypt - | # encrypt the secret via GPG
 openssl base64                                                                    | # Base64 encode the encrypted secret
 tr -d "\n"                                                                        | # remove line breaks
@@ -55,14 +55,14 @@ tr "+" "-"                                                                      
 tr "/" "_"                                                                        | # replace "/" with "_"
 awk '{print "<?php print(htmlentities(SECRET_SHARING_URL)); ?>" $0}'<?php print($indentation); ?> # prepend secret sharing URL</pre></p>
 
-  <h3>Or...</h3>
-  <p>...just use the <a href="/">secret sharing form</a> we provide for your convenience.</p>
+  <h3>Oder..</h3>
+  <p>... Sie nutzen unseren <a href="/">"Teile ein Geheimnis"</a> Dienst.</p>
 
 <?php
   if (ENABLE_PASSWORD_PROTECTION) {
 ?>
-  <h2>Short description of the password-protection feature.</h2>
-  <p>When using the password-protection feature, the secret is encrypted locally using the AES algorithm in GCM mode. The encryption key is derived from the entered password and a dynamically generated salt using the PBKDF2 algorithm. The dynamically generated salt is prepended to the encrypted secret. The password-protection feature is implemented using client-side JavaScript. Please beware that a compromised server may serve you JavaScript code that defeats the purpose of the local encryption. If you do not trust the server that provides the secret sharing service, then encrypt your secret with a locally installed application before sharing it.
+  <h2>Eine kurze Erklärung zur Passwortverschlüsselung.</h2>
+  <p>Wenn Sie die Passwortverschlüsselung nutzen, wird das Geheimnis selbst lokal im Browser über AES im GCM Mode verschlüsselt. Der Schlüssel wird vom eingegeben Passwort abgeleitet und um einen dynamischen Teil (Salt) über den PBKDF2 Algorithmus ergänzt. Der dynamische Teil wird dem Geheimnis vorangestellt und beeinträchtigt die Sicherheit nicht. Er ist notwendig, um eine Komplexität des Passwortes zu gewährleisten. Die Verschlüsselung erfolgt komplett auf Client Seite im Browser. Bitte beachten Sie, dass ein kompromitierter Server, verwundbaren Code ausliefern könnte. Wenn Sie dem Server nicht vertrauen, verschlüssel Sie das Geheimnis vorab lokal auf Ihrem Computer.
 <?php
   }
 ?>
