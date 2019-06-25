@@ -38,9 +38,9 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li<?php if (empty(SECRET_URI)) { ?> class="active"<?php } ?>><a href="/">Share a secret.</a></li>
-            <li<?php if (0 === strcmp(SECRET_URI, HOW_PAGE_NAME)) { ?> class="active"<?php } ?>><a href="/how">How does this service work?</a></li>
-            <li<?php if (0 === strcmp(SECRET_URI, IMPRINT_PAGE_NAME)) { ?> class="active"<?php } ?>><a href="/imprint">Who provides this service?</a></li>
+            <li<?php if (empty(SECRET_URI)) { ?> class="active"<?php } ?>><a href="/">Teile ein Geheimnis.</a></li>
+            <li<?php if (0 === strcmp(SECRET_URI, HOW_PAGE_NAME)) { ?> class="active"<?php } ?>><a href="/how">Wir funktioniert dieser Dienst?</a></li>
+            <li<?php if (0 === strcmp(SECRET_URI, IMPRINT_PAGE_NAME)) { ?> class="active"<?php } ?>><a href="/imprint">Wer steckt hinter diesem Dienst?</a></li>
           </ul>
         </div>
       </div>
@@ -48,9 +48,9 @@
 
     <div class="jumbotron text-center">
       <h1><?php print(htmlentities(PAGE_TITLE)); ?></h1>
-      <p>This page allows you to share a secret through a secret sharing link.<br />
-         The secret is stored in the secret sharing link and not on the server.<br />
-         A secret sharing link can only be used once.</p>
+      <p>Diese Seite erlaubt Ihnen ein Geheimnis oder einen geheimen Text über einen geheimen Link zu teilen.<br />
+         Das Geheimnis selbst wird ausschließlich in der URL gespeichert und niemals auf unserem Server.<br />
+         Ein geheimer Link kann nur einmalig verwendet werden.</p>
     </div>
 
     <div class="container">
